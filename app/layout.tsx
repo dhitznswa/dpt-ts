@@ -1,3 +1,4 @@
+import { ReactLenis } from "lenis/react";
 import type { Metadata } from "next";
 import "./globals.css";
 import "./all.min.css";
@@ -18,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={`font-space antialiased`} translate="no">
-        {children}
+        <ReactLenis root>{children}</ReactLenis>
       </body>
     </html>
   );

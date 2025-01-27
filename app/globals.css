@@ -3,4 +3,55 @@
 
 @theme {
   --font-space: "Space Grotesk", serif;
+
+  --color-primary: #5d3fd3;
+  --color-secondary: #50c878;
+}
+
+@layer utilities {
+  .sidebar__list > .sidebar__list_header {
+    @apply text-slate-400 tracking-wide text-sm inline-flex gap-2 items-center;
+  }
+  .sidebar__list > .sidebar__list_item {
+    @apply my-3 transition-colors duration-300;
+  }
+  .sidebar__list > .sidebar__list_item > .sidebar__list_item_link {
+    @apply flex justify-baseline items-center gap-4 text-sm transform;
+  }
+  .sidebar__list > .sidebar__list_item > .sidebar__list_item_link:before {
+    content: "\f061";
+    font-family: "Font Awesome 6 Pro";
+    font-weight: 400;
+    @apply group-hover:translate-x-1.5 transition-transform duration-300;
+  }
+  .sidebar__list > .sidebar__list_item:hover > .sidebar__list_item_link:before {
+    @apply translate-x-1.5 transition-transform duration-300;
+  }
+  .sidebar__list > .sidebar__list_item.active > .sidebar__list_item_link {
+    @apply font-medium text-primary;
+  }
+  .sidebar__list
+    > .sidebar__list_item.active
+    > .sidebar__list_item_link:before {
+    content: "\f05b";
+    font-family: "Font Awesome 6 Pro";
+    font-weight: 400;
+  }
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@layer base {
+  input::placeholder,
+  textarea::placeholder {
+    color: theme(--color-gray-400);
+  }
 }
