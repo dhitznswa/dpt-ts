@@ -1,5 +1,5 @@
 import React from "react";
-import { cva, cx, type VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center tracking-wide text-sm gap-2 font-medium rounded transition-colors duration-300",
@@ -33,7 +33,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, variant, size, ...props }, ref) => {
     return (
       <button
-        className={cx(buttonVariants({ variant, size, className }))}
+        className={buttonVariants({ variant, size, className })}
         {...props}
         ref={ref}
       >

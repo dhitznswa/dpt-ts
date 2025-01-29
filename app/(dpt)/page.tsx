@@ -1,19 +1,17 @@
 "use client";
 
 import { useSidebar } from "@/context/SidebarContext";
+import Input from "../components/utils/input";
 
 export default function Home() {
-  const { isOpen, toggleSidebar } = useSidebar();
+  const { isOpen } = useSidebar();
 
   console.log(isOpen);
 
   return (
     <>
-      <div className="px-2 py-1 bg-oren rounded-lg w-full flex justify-between">
-        <button onClick={toggleSidebar} className="order-last">
-          ganti
-        </button>
-
+      <div className="px-2 py-1 bg-oren rounded-lg w-full">
+        <Input placeholder="uhuy" variant="outline" />
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
           nobis quod excepturi adipisci libero, amet obcaecati quae rerum error

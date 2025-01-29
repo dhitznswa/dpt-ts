@@ -47,11 +47,13 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
-}
 
-@layer base {
   input::placeholder,
   textarea::placeholder {
     color: theme(--color-gray-400);
+  }
+
+  body {
+    @apply overflow-x-hidden;
   }
 }

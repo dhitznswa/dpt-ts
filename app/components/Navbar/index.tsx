@@ -4,6 +4,7 @@ import { useSidebar } from "@/context/SidebarContext";
 import React, { useEffect, useState } from "react";
 import { Button } from "../utils/button";
 import { cx } from "class-variance-authority";
+import Input from "../utils/input";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -24,15 +25,16 @@ export default function Navbar() {
   return (
     <div
       className={cx(
-        "w-full p-5 sticky top-0 transition-all duration-300",
-        isScrolled ? "shadow-sm bg-white" : ""
+        "w-full py-5 px-10 sticky top-0 transition-all duration-300 z-50 bg-white",
+        isScrolled ? "shadow-sm" : ""
       )}
     >
       <div className="container mx-auto flex justify-between items-center">
-        <div className="">
-          <input type="text" className="" />
+        <div className="flex items-center">
+          <i className="fa-regular fa-search"></i>
+          <Input type="text" variant="textOnly" placeholder="Search..." />
         </div>
-        <div className="flex items-center gap-10">
+        <div className="flex items-center gap-5 md:gap-10">
           <div className="">
             <i className="fa-regular fa-bell"></i>
           </div>

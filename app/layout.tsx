@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={`font-space antialiased`} translate="no">
+      <body className={`font-space antialiased text-sm`} translate="no">
         <ReactLenis root>{children}</ReactLenis>
       </body>
     </html>

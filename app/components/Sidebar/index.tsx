@@ -4,9 +4,11 @@ import { useSidebar } from "@/context/SidebarContext";
 import { cx } from "class-variance-authority";
 import React, { useEffect, useRef } from "react";
 import SidebarListItems from "./sidebarListItems";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar({ className }: { className?: string }) {
   const { isOpen, setStatus } = useSidebar();
+  const pathname = usePathname();
 
   const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -14,6 +16,10 @@ export default function Sidebar({ className }: { className?: string }) {
     if (sidebarRef.current && !sidebarRef.current.contains(e.target as Node)) {
       setStatus(false);
     }
+  };
+
+  const activeLink = (path: string) => {
+    return pathname === path || pathname.startsWith(`${path}/`);
   };
 
   useEffect(() => {
@@ -44,7 +50,7 @@ export default function Sidebar({ className }: { className?: string }) {
       <hr className="my-4" />
 
       <div className="sidebar__items w-full">
-        <SidebarListItems />
+        <SidebarListItems activeLink={activeLink} />
       </div>
     </div>
   );
