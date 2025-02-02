@@ -20,22 +20,17 @@ export default function SidebarListItems({
       <div className="mt-8">
         <ul className="w-full sidebar__list">
           <li className="sidebar__list_header">
-            <i className="fa-light fa-network-wired"></i> Web & Domain Tools
-          </li>
-          <li
-            className={cx(
-              "sidebar__list_item group",
-              activeLink("/") ? "active" : ""
+            <i className={cx("fa-light fa-network-wired")}></i> Networking{" "}
+            {activeLink("/networking") ? (
+              <i className={cx("fa-light fa-check")}></i>
+            ) : (
+              ""
             )}
-          >
-            <Link href="/" className="sidebar__list_item_link">
-              Whois
-            </Link>
           </li>
           <li
             className={cx(
               "sidebar__list_item group",
-              activeLink("/networking") ? "active" : ""
+              activeLink("/networking/ip-address-lookup") ? "active" : ""
             )}
           >
             <Link href="/" className="sidebar__list_item_link">
@@ -49,7 +44,7 @@ export default function SidebarListItems({
             )}
           >
             <Link href="/" className="sidebar__list_item_link">
-              BASE64 Encription
+              Whois Domain
             </Link>
           </li>
         </ul>

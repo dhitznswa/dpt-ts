@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface DataIPProps {
   status: number;
@@ -17,8 +18,7 @@ export default function useClientIP() {
   useEffect(() => {
     async function getIP() {
       try {
-        const res = await fetch("/api/get-ip");
-        const data: DataIPProps = await res.json();
+        const { data } = await axios.get("/api/get-ip");
         setDataIP(data);
       } catch (error) {
         console.error("Failed to fetch IP:", error);

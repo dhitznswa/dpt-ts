@@ -32,7 +32,7 @@ export default function HeaderTool({
         <div className="flex gap-1 items-center text-xs text-slate-400">
           <i className="fa-regular fa-home"></i>
           {breadcrumb.length > 0 ? (
-            <ul>
+            <ul className="flex gap-1">
               {breadcrumb.map((item, index) => (
                 <li key={index} className="flex gap-1 items-center capitalize">
                   <i className="fa-regular fa-angle-right"></i> {item}
