@@ -9,6 +9,7 @@ const inputVariants = cva(
         default: "border-2 border-slate-400 rounded-md",
         outline: "border-b border-slate-400",
         textOnly: "focus:text-primary",
+        outline_error: "border-b border-red-500",
       },
     },
     defaultVariants: {
