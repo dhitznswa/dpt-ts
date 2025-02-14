@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,64 +8,16 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model UserAuth {
-  id        Int      @id @default(autoincrement())
-  fullname  String
-  email     String   @unique
-  password  String?
-  role      String   @default("user")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  Info UserInfo[]
-}
-
-model UserInfo {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  address   String?
-  number    String?
-  image     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  User UserAuth @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Category {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  slug      String   @unique
-  createdAt DateTime @default(now())
-
-  tools Tool[]
-}
-
-model Tool {
-  id          Int      @id @default(autoincrement())
-  name        String
-  slug        String   @unique
-  description String?
-  categoryId  Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  category Category @relation(fields: [categoryId], references: [id])
-  logs     Log[]
-}
-
 model Log {
-  id         Int      @id @default(autoincrement())
-  toolId     Int
-  ipAddress  String
-  userAgent  String?
-  accessedAt DateTime @default(now())
-
-  tool Tool @relation(fields: [toolId], references: [id])
+  id      String   @id @default(cuid())
+  ipAddr  String   @db.VarChar(100)
+  tool    String   @db.VarChar(100)
+  used_at DateTime @default(now())
 }
 
-model Setting {
-  id    Int    @id @default(autoincrement())
-  key   String @unique
-  value String
+model Visitor {
+  id         String   @id @default(cuid())
+  ipAddr     String   @db.VarChar(100)
+  userAgent  String   @db.VarChar(255)
+  visited_at DateTime @default(now())
 }

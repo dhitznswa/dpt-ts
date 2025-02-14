@@ -30,10 +30,13 @@ export default function SidebarListItems({
           <li
             className={cx(
               "sidebar__list_item group",
-              activeLink("/networking/ip-address-lookup") ? "active" : ""
+              activeLink("/networking/ip-addr-lookup") ? "active" : ""
             )}
           >
-            <Link href="/" className="sidebar__list_item_link">
+            <Link
+              href="/networking/ip-addr-lookup"
+              className="sidebar__list_item_link"
+            >
               IP Address Lookup
             </Link>
           </li>
