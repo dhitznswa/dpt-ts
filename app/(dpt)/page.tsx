@@ -4,8 +4,7 @@ import useClientIP from "@/hooks/useClientIP";
 import HeaderTool from "../components/HeaderTool";
 import Card from "../components/utils/card";
 
-export default  function Home() {
-
+export default function Home() {
   const dataIP = useClientIP();
   return (
     <>
@@ -47,9 +46,7 @@ export default  function Home() {
             <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">
               IP Address
             </span>
-            <span className="text-2xl font-medium">
-              {dataIP?.data?.ip ?? "No Detected"}
-            </span>
+            <span className="text-2xl font-medium">{dataIP?.data?.ip}</span>
           </div>
         </Card>
         <Card className="flex items-center gap-4">
