@@ -56,4 +56,10 @@
   body {
     @apply overflow-x-hidden;
   }
+
+  html,
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) transparent;
+  }
 }

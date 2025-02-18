@@ -8,11 +8,13 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Log {
-  id      String   @id @default(cuid())
-  ipAddr  String   @db.VarChar(100)
-  tool    String   @db.VarChar(100)
-  used_at DateTime @default(now())
+model ToolUsageHistories {
+  id         String   @id @default(cuid())
+  status     String   @db.VarChar(15)
+  tool_name  String   @db.VarChar(100)
+  ip_address String   @db.VarChar(100)
+  used_at    DateTime @default(now())
+  notes      String   @db.VarChar(100)
 }
 
 model Visitor {

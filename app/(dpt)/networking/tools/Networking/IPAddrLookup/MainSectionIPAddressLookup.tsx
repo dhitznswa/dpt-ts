@@ -23,6 +23,7 @@ export default function MainSectionIPAddressLookup() {
   const [errorValidate, setErrorValidate] = useState<string>("");
   const [responseInformation, setResponseInformation] =
     useState<ResponseInformation | null>(null);
+  const [queryIp, setQueryIp] = useState<string>("");
 
   const [pending, setPending] = useState<boolean>(false);
 
@@ -35,22 +36,30 @@ export default function MainSectionIPAddressLookup() {
         `dpt-ial__${query}`
       );
       if (localStorageIpInformation) {
-        setResponseInformation(JSON.parse(localStorageIpInformation));
+        setTimeout(() => {
+          setResponseInformation(JSON.parse(localStorageIpInformation));
+          setPending(false);
+        }, 3000);
         return;
       }
 
       const { status, data } = await axios.get(url);
 
-      if (status != 200)
+      if (status != 200) {
+        setPending(false);
         return setResponseInformation({
           status: "error",
           message: "Internal Server Error.",
         });
-      if (data.status == "fail")
+      }
+
+      if (data.status == "fail") {
+        setPending(false);
         return setResponseInformation({
           status: "error",
-          message: `Gagal mendapatkan informasi dari IP : ${query}`,
+          message: `Tidak mendapatkan informasi dari IP : ${query}`,
         });
+      }
 
       const resultIpInformation: ResponseInformation = {
         status: "succes",
@@ -68,18 +77,18 @@ export default function MainSectionIPAddressLookup() {
       );
       setResponseInformation(resultIpInformation);
       setPending(false);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
+      setPending(false);
       setResponseInformation({
         status: "error",
         message: "Internal Server Error.",
       });
-      setPending(false);
     }
   };
 
-  const handlerFormSubmit = async (formData: FormData) => {
-    const ip = formData.get("ipaddr");
+  const handlerFormSubmit = async () => {
+    const ip = queryIp;
 
     const ipValidation = z.string().ip({ message: "IP Address Tidak Valid" });
     const validatedIP = ipValidation.safeParse(ip);
@@ -92,33 +101,47 @@ export default function MainSectionIPAddressLookup() {
     handleAction(ip as string);
   };
 
+  const resetHandler = async () => {
+    setResponseInformation(null);
+    setQueryIp("");
+    setErrorValidate("");
+    setPending(false);
+  };
+
   return (
     <>
-      <Card className="mb-3">
-        <form className="flex flex-col gap-4" action={handlerFormSubmit}>
-          <div className="ipaddrlookup__input">
-            <Input
-              variant={errorValidate != "" ? "outline_error" : "outline"}
-              placeholder="Masukan IP Address valid"
-              name="ipaddr"
-              onChange={() => setErrorValidate("")}
-            />
-            {errorValidate != "" ? (
-              <span className=" mx-2 text-xs font-semibold text-red-600">
-                {errorValidate}
-              </span>
-            ) : (
-              ""
-            )}
-          </div>
-          <div className="ipaddrlookup__button">
-            {pending ? (
-              <Button disabled>Mencari informasi ...</Button>
-            ) : (
-              <Button disabled={errorValidate != ""}>Cek Sekarang</Button>
-            )}
-          </div>
-        </form>
+      <Card className="mb-3 flex flex-col gap-4">
+        <div className="ipaddrlookup__input">
+          <Input
+            variant={errorValidate != "" ? "outline_error" : "outline"}
+            placeholder="Masukan IP Address valid"
+            name="ipaddr"
+            onChange={(e) => {
+              setErrorValidate("");
+              setQueryIp(e.target.value);
+            }}
+            value={queryIp}
+          />
+          {errorValidate != "" ? (
+            <span className=" mx-2 text-xs font-semibold text-red-600">
+              {errorValidate}
+            </span>
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="ipaddrlookup__button flex gap-3">
+          {pending ? (
+            <Button disabled>Mencari informasi ...</Button>
+          ) : (
+            <Button disabled={errorValidate != ""} onClick={handlerFormSubmit}>
+              Cek Sekarang
+            </Button>
+          )}
+          <Button variant="secondary" onClick={resetHandler}>
+            Reset
+          </Button>
+        </div>
       </Card>
       <Card>
         <h3 className="text-base font-semibold mb-3">Hasil Pencarian:</h3>
