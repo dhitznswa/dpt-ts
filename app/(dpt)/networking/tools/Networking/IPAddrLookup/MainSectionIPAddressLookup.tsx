@@ -7,6 +7,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { z } from "zod";
 import ResultSectionIPAddressLookup from "./ResultSectionIPAddressLookup";
+import useToolUsageHistory from "@/hooks/useToolUsageHistory";
 
 interface ResponseInformation {
   status: "succes" | "error";
@@ -27,6 +28,8 @@ export default function MainSectionIPAddressLookup() {
 
   const [pending, setPending] = useState<boolean>(false);
 
+  const { createHistory } = useToolUsageHistory();
+
   const handleAction = async (query: string) => {
     setPending(true);
     const url = `http://ip-api.com/json/${query}?fields=country,countryCode,region,regionName,city,zip,lat,lon,timezone,currency,isp,query,status`;
@@ -38,6 +41,12 @@ export default function MainSectionIPAddressLookup() {
       if (localStorageIpInformation) {
         setTimeout(() => {
           setResponseInformation(JSON.parse(localStorageIpInformation));
+          createHistory({
+            status: "success",
+            ip_address: "127.0.0.1",
+            tool_name: "IP Address Lookup",
+            notes: "Berhasil",
+          });
           setPending(false);
         }, 3000);
         return;

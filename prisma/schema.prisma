@@ -17,7 +17,7 @@ model ToolUsageHistories {
   notes      String   @db.VarChar(100)
 }
 
-model Visitor {
+model Visitors {
   id         String   @id @default(cuid())
   ipAddr     String   @db.VarChar(100)
   userAgent  String   @db.VarChar(255)
