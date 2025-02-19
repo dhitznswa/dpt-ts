@@ -43,7 +43,6 @@ export default function MainSectionIPAddressLookup() {
           setResponseInformation(JSON.parse(localStorageIpInformation));
           createHistory({
             status: "success",
-            ip_address: "127.0.0.1",
             tool_name: "IP Address Lookup",
             notes: "Berhasil",
           });
@@ -85,6 +84,11 @@ export default function MainSectionIPAddressLookup() {
         JSON.stringify(resultIpInformation)
       );
       setResponseInformation(resultIpInformation);
+      createHistory({
+        status: "success",
+        tool_name: "IP Address Lookup",
+        notes: "Berhasil",
+      });
       setPending(false);
     } catch (error) {
       console.log(error);

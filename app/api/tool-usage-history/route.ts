@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 interface Payload {
   status: string;
   tool_name: string;
-  ip_address: string;
   notes: string;
 }
 
@@ -27,13 +26,14 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+    const ip = req.headers.get("x-forwarded-for")?.replace("::ffff:", "");
     const data: Payload = await req.json();
 
     const history = await prisma.toolUsageHistories.create({
       data: {
         status: data.status,
         tool_name: data.tool_name,
-        ip_address: data.ip_address,
+        ip_address: ip as string,
         notes: data.notes,
       },
     });

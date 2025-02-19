@@ -48,6 +48,10 @@
     border-color: var(--color-gray-200, currentColor);
   }
 
+  *::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+  }
+
   input::placeholder,
   textarea::placeholder {
     color: theme(--color-gray-400);
@@ -57,9 +61,30 @@
     @apply overflow-x-hidden;
   }
 
-  html,
-  body {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-primary) transparent;
+  html::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  html::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded-md;
+  }
+
+  .scroller {
+    @apply pr-2 pb-2;
+  }
+  .scroller::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  .scroller::-webkit-scrollbar-track {
+    @apply bg-slate-400/50 rounded-md;
+  }
+
+  .scroller::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded-md;
   }
 }
