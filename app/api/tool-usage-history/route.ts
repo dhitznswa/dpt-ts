@@ -9,13 +9,17 @@ interface Payload {
 
 export async function GET() {
   try {
-    const dataHistory = await prisma.toolUsageHistories.findMany();
-    // const countHistory = await prisma.toolUsageHistories.count();
+    const dataHistory = await prisma.toolUsageHistories.findMany({
+      take: 10,
+      orderBy: { used_at: "desc" },
+    });
+    const dataCount = await prisma.toolUsageHistories.count();
 
     return NextResponse.json({
       status: 200,
       message: "Getted histories successfully",
       data: {
+        count: dataCount,
         histories: dataHistory,
       },
     });
@@ -43,6 +47,7 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (e) {
+    console.log(e);
     return NextResponse.json(
       { status: 500, message: "Internal Server Error" },
       { status: 500 }

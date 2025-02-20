@@ -12,10 +12,12 @@ interface CreateHistroyProps {
 interface ReadHistoriesProps extends CreateHistroyProps {
   id: string;
   used_at: Date;
+  ip_address:string
 }
 
 export default function useToolUsageHistory() {
   const [toolHistories, setToolHistories] = useState<ReadHistoriesProps[]>([]);
+  const [hitsoryCount, setHistoryCount] = useState<number>();
   const [error, setError] = useState<string>("");
 
   const createHistory = async ({
@@ -45,7 +47,10 @@ export default function useToolUsageHistory() {
           setError("Gagal mendapatkan data histori");
           return;
         }
+        console.log(data)
         setToolHistories(data.data.histories);
+        setHistoryCount(data.data.count);
+
       } catch (e) {
         console.log(e);
         setError("Internal Server Error");
@@ -60,5 +65,6 @@ export default function useToolUsageHistory() {
     createHistory,
     error,
     toolHistories,
+    hitsoryCount,
   };
 }

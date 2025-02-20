@@ -44,7 +44,7 @@ export default function MainSectionIPAddressLookup() {
           createHistory({
             status: "success",
             tool_name: "IP Address Lookup",
-            notes: "Berhasil",
+            notes: "Successfully executed the tool",
           });
           setPending(false);
         }, 3000);
@@ -55,6 +55,11 @@ export default function MainSectionIPAddressLookup() {
 
       if (status != 200) {
         setPending(false);
+        createHistory({
+          status: "error",
+          tool_name: "IP Address Lookup",
+          notes: "Failed to run the tool",
+        });
         return setResponseInformation({
           status: "error",
           message: "Internal Server Error.",
@@ -63,6 +68,11 @@ export default function MainSectionIPAddressLookup() {
 
       if (data.status == "fail") {
         setPending(false);
+        createHistory({
+          status: "error",
+          tool_name: "IP Address Lookup",
+          notes: "Failed to run the tool",
+        });
         return setResponseInformation({
           status: "error",
           message: `Tidak mendapatkan informasi dari IP : ${query}`,
@@ -87,11 +97,16 @@ export default function MainSectionIPAddressLookup() {
       createHistory({
         status: "success",
         tool_name: "IP Address Lookup",
-        notes: "Berhasil",
+        notes: "Successfully executed the tool",
       });
       setPending(false);
     } catch (error) {
-      console.log(error);
+      void error;
+      createHistory({
+        status: "error",
+        tool_name: "IP Address Lookup",
+        notes: "Failed to run the tool",
+      });
       setPending(false);
       setResponseInformation({
         status: "error",
